@@ -2,6 +2,7 @@
 import json,requests
 import sys
 import csv
+import operator
 
 book_subject = raw_input("Search Google Books API for :") 
 num_books = raw_input('Enter how many books you would like to see:' )
@@ -41,7 +42,10 @@ with open('library.csv', 'rb') as f:
 #group by publisher
 publisher_dict ={}
 for item in items:
-    publisher_id = item['volumeInfo']['publisher']
+    if 'publisher' in item['volumeInfo']:
+        publisher_id = item['volumeInfo']['publisher']
+    else:
+        print 'Publish does not exist for %s' % item['id']
     if publisher_id not in publisher_dict:
         publisher_dict[publisher_id] = [item]
     elif publisher_id in publisher_dict:
@@ -91,7 +95,22 @@ for ebook_availablity in ebook_dict:
     for book4 in ebook_dict[ebook_availablity]:
         print book4['volumeInfo']['title'] 
 
+#sort books by price
+price_list=[]
+not_for_sale_list = []
+for item in items:
+    if item['saleInfo']['saleability'] == 'NOT_FOR_SALE':
+        not_for_sale_list.append(item)
+    elif item['saleInfo']['saleability'] == 'FOR_SALE':
+        price_list.append(item)
 
+# sort books by price
+sorted_books = sorted(price_list, key=lambda book: book['saleInfo']['listPrice']['amount']) 
+for book in sorted_books:
+    print "%s => %d" % (book['volumeInfo']['title'], book['saleInfo']['listPrice']['amount'])
+
+        
+    
 
      
 
