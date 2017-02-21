@@ -14,9 +14,7 @@ num_books = raw_input('Enter how many books you would like to see:' )
 payload = {'q': book_subject, 'maxResults': num_books}
     #get call
 r = requests.get('https://www.googleapis.com/books/v1/volumes', params=payload)
-
 library = r.json()
-
 items = library['items']
 
 #make a list called id list and as you loop throguh that items list and store it into id list and check
@@ -28,7 +26,6 @@ for item in items:
         id_list.append(item_id) 
     else:
         print "%s is already in the list!" % item_id
-print id_list
 
 #writes library as a csv file and then reads it
 
@@ -42,17 +39,61 @@ with open('library.csv', 'rb') as f:
         #print(row)
 
 #group by publisher
-
 publisher_dict ={}
 for item in items:
     publisher_id = item['volumeInfo']['publisher']
-    if publisher_id is not in publisher_dict:
-        publisher_dict.append(publisher_id:[item])
-    if publisher_id is in publisher_dict:
-        publisher_dict.append(publisher_id:
-        
+    if publisher_id not in publisher_dict:
+        publisher_dict[publisher_id] = [item]
+    elif publisher_id in publisher_dict:
+        publisher_dict[publisher_id].append(item)
+for publisher in publisher_dict:
+    print publisher
+    for book in publisher_dict[publisher]:
+        print book['volumeInfo']['title']
+
+#group by pdf availability
+pdf_dict ={}
+for item in items:
+    pdf_availablity = item['accessInfo']['pdf']['isAvailable']
+    if pdf_availablity not in pdf_dict:
+        pdf_dict[pdf_availablity] = [item]
+    elif pdf_availablity in pdf_dict:
+        pdf_dict[pdf_availablity].append(item)
+for pdf_availablity in pdf_dict:
+    print pdf_availablity
+    for book2 in pdf_dict[pdf_availablity]:
+        print book2['volumeInfo']['title'] 
+
+#group by epub availability
+epub_dict ={}
+for item in items:
+    epub_availablity = item['accessInfo']['epub']['isAvailable']
+    if epub_availablity not in epub_dict:
+        epub_dict[epub_availablity] = [item]
+    elif epub_availablity in epub_dict:
+        epub_dict[epub_availablity].append(item)
+for epub_availablity in epub_dict:
+    print epub_availablity
+    for book3 in epub_dict[epub_availablity]:
+        print book3['volumeInfo']['title'] 
+
+#group by Ebook availability
+
+ebook_dict ={}
+for item in items:
+    ebook_availablity = item['saleInfo']['isEbook']
+    if ebook_availablity not in ebook_dict:
+        ebook_dict[ebook_availablity] = [item]
+    elif ebook_availablity in ebook_dict:
+        ebook_dict[ebook_availablity].append(item)
+for ebook_availablity in ebook_dict:
+    print ebook_availablity
+    for book4 in ebook_dict[ebook_availablity]:
+        print book4['volumeInfo']['title'] 
 
 
+
+     
 
 #if 'publisher' in items[0]['volumeInfo']:
  #   print items[0]['volumeInfo']['publisher']
