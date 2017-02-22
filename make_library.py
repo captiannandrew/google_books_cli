@@ -211,7 +211,7 @@ class searchAPI():
     def _save_csv_file(self):
         with open('library.csv', 'wb',) as f:
             w = csv.writer(f)
-            w.writerows(library.items())
+            w.writerows(self.items.items())
 
     def _load_csv_file(self):
          reader = csv.reader(f)        
