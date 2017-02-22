@@ -7,7 +7,8 @@ ________________________________________
 
 To Note:
 ________________________________________
-1.I was unable to complete user-defined function calls, therefore the program groups and sorts the library data at once.
+
+1. I was unable to complete user-defined function calls, therefore the program groups and sorts the library data at once.
 
 2. make_library.py is unable to group and sort all books from the library, just the first  book from each subject the user inputs. However, sample_requsts.py is able to print and sort/group all books, but only form one subject. I had trouble/ ran out of time to fully merge and integrate from both programs.
 
