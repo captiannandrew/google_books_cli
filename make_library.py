@@ -5,11 +5,6 @@ import csv
 import operator
 import datetime
 
-
-#f = open("library.csv", "w")
-#f.truncate()
-#f.close()
-
 class searchAPI():
     def __init__(self):
        url = 'https://www.googleapis.com/books/v1/volumes'
