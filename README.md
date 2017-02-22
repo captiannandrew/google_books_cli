@@ -14,4 +14,4 @@ ________________________________________
 
 3. make_library's recursive call to add more than 120 books does not work and therefore only has a maximum and minimum of 120 books to be placed in the library.
 
-4. make_library.py and sample_requests.py can both save and load libraries but not have been called to, due to imcomplete requirements.
+4. make_library.py and sample_requests.py can both save and load libraries but not have been called to, due to incomplete requirements.
